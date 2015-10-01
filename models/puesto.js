@@ -1,0 +1,1 @@
+Puestos = new Meteor.Collection("puestos");

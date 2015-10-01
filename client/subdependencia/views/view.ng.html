@@ -1,0 +1,80 @@
+<h2> {{subdependencia.nombre}} </h2>
+
+
+<h3>Direcciones</h3>
+<div class="row">
+	<div class="col-sm-12">
+		<a class="btn btn-secondary" role="button" data-toggle="collapse" 
+			href="#nuevo" aria-expanded="false" aria-controls="nuevo" id="createDireccion" ng-click="nuevaDireccion()">
+		  Agregar
+		</a>
+		<div class="collapse" id="nuevo">
+			<form class="form-horizontal" role="form">
+		  	<div class="well">	    
+			    <div class="row">
+			    	<div class="col-sm-6">				    
+					    <label for="nombre">Nombre</label>
+					    <input type="text" class="form-control" placeholder="Nombre" ng-model="direccion.nombre">
+			    	</div>
+			    	<div class="col-sm-6">				    
+					    <label for="siglas">Siglas</label>
+					    <input type="text" class="form-control" placeholder="Siglas" ng-model="direccion.siglas">
+			    	</div>
+			    </div>
+				<div class="row">
+					<div class="col-sm-12">
+						<input type="button" ng-click="guardar(direccion)" value="Agregar" class="btn btn-secondary" ng-show="action">
+						<input type="button" ng-click="actualizar(direccion)" value="Actualizar" class="btn btn-primary" ng-show="!action">
+					</div>
+				</div>	
+		  	</div>  
+		  </form>
+		</div>
+	</div>
+</div>
+
+<!-- List -->
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th width="50%">Nombre</th>
+					<th width="20%">Siglas</th>
+					<th width="10%">
+						<div class="text-center">
+							Estatus
+						</div>
+					</th>
+					<th width="20%">
+						<div class="text-center">
+							Acciones
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+		    <tr dir-paginate="direccion in direcciones | itemsPerPage: perPage" total-items="direccionesCount.count">
+			    <td><a href="/direccion/{{direccion._id}}" > {{direccion.nombre}}</a></td>
+			    <td>{{direccion.siglas}}</td>
+			    
+			    <td>
+				    	<span ng-if="direccion.estatus" class="label label-success">
+							  Activo
+							</span>
+							<span ng-if="!direccion.estatus" class="label label-danger">
+							  Inactivo
+							</span>
+					</td>
+			    <td>
+				    <a href="./direccion/{{direccion._id}}" class="btn btn-small btn-info"><i class="fa fa-eye"></i></a>
+				    <a href="#" ng-click="editar(direccion._id)" class="btn btn-small btn-success"><i class="fa fa-pencil"></i></a>
+				    <a href="#" ng-show="direccion.estatus" ng-click="cambiarEstatus(direccion._id)" class="btn btn-small btn-danger"><i class="fa fa-close"></i></a>
+				    <a href="#" ng-show="!direccion.estatus" ng-click="cambiarEstatus(direccion._id)" class="btn btn-small btn-success"><i class="fa fa-check"></i></a>				    	
+			    </td>
+		    </tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+	</div>
+</div>

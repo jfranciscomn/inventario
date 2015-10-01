@@ -1,0 +1,80 @@
+<h1>Dependencia: <h2> {{dependencia.nombre}} </h2></h1>
+
+
+<h3>Subdependencias</h3>
+<div class="row">
+	<div class="col-sm-12">
+		<a class="btn btn-secondary" role="button" data-toggle="collapse" 
+			href="#nuevo" aria-expanded="false" aria-controls="nuevo" id="createSubdependencia" ng-click="nuevaSubdependencia()">
+		  Agregar
+		</a>
+		<div class="collapse" id="nuevo">
+			<form class="form-horizontal" role="form">
+		  	<div class="well">	    
+			    <div class="row">
+			    	<div class="col-sm-6">				    
+					    <label for="nombre">Nombre</label>
+					    <input type="text" class="form-control" placeholder="Nombre" ng-model="subdependencia.nombre">
+			    	</div>
+			    	<div class="col-sm-6">				    
+					    <label for="siglas">Siglas</label>
+					    <input type="text" class="form-control" placeholder="Siglas" ng-model="subdependencia.siglas">
+			    	</div>
+			    </div>
+				<div class="row">
+					<div class="col-sm-12">
+						<input type="button" ng-click="guardar(subdependencia)" value="Agregar" class="btn btn-secondary" ng-show="action">
+						<input type="button" ng-click="actualizar(subdependencia)" value="Actualizar" class="btn btn-primary" ng-show="!action">
+					</div>
+				</div>	
+		  	</div>  
+		  </form>
+		</div>
+	</div>
+</div>
+
+<!-- List -->
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th width="50%">Nombre</th>
+					<th width="20%">Siglas</th>
+					<th width="10%">
+						<div class="text-center">
+							Estatus
+						</div>
+					</th>
+					<th width="20%">
+						<div class="text-center">
+							Acciones
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+		    <tr dir-paginate="subdependencia in subdependencias | itemsPerPage: perPage" total-items="subdependenciasCount.count">
+			    <td><a href="/subdependencia/{{subdependencia._id}}" > {{subdependencia.nombre}}</a></td>
+			    <td>{{subdependencia.siglas}}</td>
+			    
+			    <td>
+				    	<span ng-if="subdependencia.estatus" class="label label-success">
+							  Activo
+							</span>
+							<span ng-if="!subdependencia.estatus" class="label label-danger">
+							  Inactivo
+							</span>
+					</td>
+			    <td>
+				    <a href="./subdependencia/{{subdependencia._id}}" class="btn btn-small btn-info"><i class="fa fa-eye"></i></a>
+				    <a href="#" ng-click="editar(subdependencia._id)" class="btn btn-small btn-success"><i class="fa fa-pencil"></i></a>
+				    <a href="#" ng-show="subdependencia.estatus" ng-click="cambiarEstatus(subdependencia._id)" class="btn btn-small btn-danger"><i class="fa fa-close"></i></a>
+				    <a href="#" ng-show="!subdependencia.estatus" ng-click="cambiarEstatus(subdependencia._id)" class="btn btn-small btn-success"><i class="fa fa-check"></i></a>				    	
+			    </td>
+		    </tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+	</div>
+</div>

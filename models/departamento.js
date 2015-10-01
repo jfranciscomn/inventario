@@ -1,0 +1,1 @@
+Departamentos = new Meteor.Collection("departamentos");
